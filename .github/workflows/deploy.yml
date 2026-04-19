@@ -85,11 +85,13 @@ jobs:
 
       - name: Validate site files
         run: |
+          set -euo pipefail
           test -f index.html
           test -f styles.css
           test -f app.js
-          test -f cover.jpg
           test -f works.json
+          test -d images
+          find images -maxdepth 1 -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.gif' \) | grep -q .
 
       - name: Commit synced works.json
         run: |
